@@ -7,7 +7,26 @@
 
 import UIKit
 
+protocol GameMainViewActionsDelegate: AnyObject {
+    func addButtonAction()
+}
+
 final class GameMainView: UIView {
+    
+    weak var actionsDelegate: GameMainViewActionsDelegate?
+    
+    //    MARK: - LifeCycle
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.backgroundColor = .black
+            setupViews()
+            setupConstraints()
+            addActions()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     
     var questionLabel: UILabel = {
         let label = UILabel()
@@ -43,17 +62,7 @@ final class GameMainView: UIView {
         return button
     }()
     
-//    MARK: - LifeCycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .black
-        setupViews()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     private func setupViews() {
     
@@ -63,6 +72,7 @@ final class GameMainView: UIView {
     }
     
     private func setupConstraints() {
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         setQuestionLabelConstraints()
         setScoreLabelConstraints()
         setFirstButtonConstraints()
@@ -98,4 +108,15 @@ final class GameMainView: UIView {
         ])
     }
 
+//    MARK: - ACTIONS
+    private func addActions() {
+        firstButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+
+    
+    @objc private func buttonPressed() {
+        
+//        DELEGATE
+        actionsDelegate?.addButtonAction()
+    }
 }
