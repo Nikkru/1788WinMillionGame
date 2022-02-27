@@ -13,7 +13,23 @@ protocol GameMainViewActionsDelegate: AnyObject {
 
 final class GameMainView: UIView {
     
+//    Delegate
     weak var actionsDelegate: GameMainViewActionsDelegate?
+    
+//    Clogure
+    var onAddButtonAction: (() -> Void)?
+    
+    //    MARK: - LifeCycle
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.backgroundColor = .black
+            setupViews()
+            setupConstraints()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     
     var firstButton: ActionButton = {
        let button = ActionButton()
@@ -73,20 +89,14 @@ final class GameMainView: UIView {
         return stackView
     }()
     
-//    MARK: - LifeCycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .black
-        setupViews()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     private func setupViews() {
     
+        addSubview(firstButton)
+        addSubview(secondButton)
+        addSubview(thirdButton)
+        addSubview(forthButton)
         addSubview(questionLabel)
         addSubview(stackView)
         addSubview(scoreLabel)
@@ -142,7 +152,15 @@ final class GameMainView: UIView {
     }
     
 //    MARK: - Actions
-    private func addActions() {
+     func addActions() {
+        firstButton.addTarget(self, action: #selector(self.addActionsButtonPressed), for: .touchUpInside)
+    }
     
+    @objc func addActionsButtonPressed() {
+        
+        onAddButtonAction?()
+        
+//        actionsDelegate?.addButtonAction()
     }
 }
+
