@@ -7,7 +7,48 @@
 
 import UIKit
 
+protocol GameMainViewActionsDelegate: AnyObject {
+    func addButtonAction()
+}
+
 final class GameMainView: UIView {
+    
+    weak var actionsDelegate: GameMainViewActionsDelegate?
+    
+    var firstButton: ActionButton = {
+       let button = ActionButton()
+        return button
+    }()
+    
+    var secondButton: ActionButton = {
+       let button = ActionButton()
+        return button
+    }()
+    
+    var thirdButton: ActionButton = {
+       let button = ActionButton()
+        return button
+    }()
+    
+    var forthButton: ActionButton = {
+       let button = ActionButton()
+        return button
+    }()
+    
+    
+    var scoreLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Вы выйграли 0 рублей"
+        label.font                      = UIFont.systemFont(ofSize: 20)
+        label.textAlignment             = .center
+        label.numberOfLines             = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.textColor                 = .white
+        label.backgroundColor           = .link
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        return label
+    }()
     
     var questionLabel: UILabel = {
         let label = UILabel()
@@ -24,6 +65,7 @@ final class GameMainView: UIView {
     }()
     
     var stackView: UIStackView = {
+    
         let stackView          = UIStackView()
         stackView.axis         = .vertical
         stackView.distribution = .fillEqually
@@ -47,6 +89,7 @@ final class GameMainView: UIView {
     
         addSubview(questionLabel)
         addSubview(stackView)
+        addSubview(scoreLabel)
         addButtonToCtackView()
     }
     
@@ -54,21 +97,26 @@ final class GameMainView: UIView {
         
         setQuestionLabelConstraints()
         setStackViewConstraints()
+        setScoreLabelConstraints()
     }
     
     private func addButtonToCtackView() {
-        let numberOfButtons = 5
-        for i in 1...numberOfButtons {
-            let button = ActionButton()
-            button.setTitle("\(i)", for: .normal)
-            stackView.addArrangedSubview(button)
-        }
+//        let numberOfButtons = 5
+//        for i in 1...numberOfButtons {
+//            let button = ActionButton()
+//            button.setTitle("\(i)", for: .normal)
+//            stackView.addArrangedSubview(button)
+//        }
+        stackView.addArrangedSubview(firstButton)
+        stackView.addArrangedSubview(secondButton)
+        stackView.addArrangedSubview(thirdButton)
+        stackView.addArrangedSubview(forthButton)
     }
     
     private func setQuestionLabelConstraints() {
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            questionLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 80),
+            questionLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 40),
             questionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 40),
             questionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -40),
         ])
@@ -84,4 +132,17 @@ final class GameMainView: UIView {
         ])
     }
     
+    private func setScoreLabelConstraints() {
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scoreLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 20),
+            scoreLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50),
+            scoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50),
+        ])
+    }
+    
+//    MARK: - Actions
+    private func addActions() {
+    
+    }
 }

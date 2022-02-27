@@ -20,8 +20,8 @@ final class ActionButton: UIButton {
     
     func setupButton() {
         setTitleColor((.white), for: .normal)
-        backgroundColor = .darkGray
-        titleLabel?.font = UIFont(name: "answer to guestion", size: 100)
-        layer.cornerRadius = 20
+        backgroundColor    = .darkGray
+        titleLabel?.font   = UIFont(name: "answer to guestion / question", size: 100)
+        layer.cornerRadius = 10
     }
 }

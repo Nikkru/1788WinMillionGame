@@ -10,6 +10,7 @@ import UIKit
 final class GameViewController: UIViewController {
 
     var mainView: GameMainView { return self.view as! GameMainView }
+    var pressedButton = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
