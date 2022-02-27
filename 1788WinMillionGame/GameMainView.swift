@@ -25,6 +25,7 @@ final class GameMainView: UIView {
             self.backgroundColor = .black
             setupViews()
             setupConstraints()
+            addActions()
         }
         
         required init?(coder: NSCoder) {
