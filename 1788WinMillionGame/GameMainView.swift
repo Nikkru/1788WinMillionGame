@@ -60,7 +60,7 @@ final class GameMainView: UIView {
         let numberOfButtons = 5
         for i in 1...numberOfButtons {
             let button = ActionButton()
-            button.setTitle("\(i)", for: .normal)
+            button.setTitle("\(1*pow(10, i))", for: .normal)
             stackView.addArrangedSubview(button)
         }
     }
