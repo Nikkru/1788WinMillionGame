@@ -8,7 +8,8 @@
 import UIKit
 
 protocol GameMainViewActionsDelegate: AnyObject {
-    func addButtonAction()
+    func addButtonFirstAction()
+
 }
 
 final class GameMainView: UIView {
@@ -34,21 +35,25 @@ final class GameMainView: UIView {
     
     var firstButton: ActionButton = {
        let button = ActionButton()
+        button.setTitle("100", for: .normal)
         return button
     }()
     
     var secondButton: ActionButton = {
        let button = ActionButton()
+        button.setTitle("1000", for: .normal)
         return button
     }()
     
     var thirdButton: ActionButton = {
        let button = ActionButton()
+        button.setTitle("10000", for: .normal)
         return button
     }()
     
     var forthButton: ActionButton = {
        let button = ActionButton()
+        button.setTitle("100000", for: .normal)
         return button
     }()
     
@@ -89,9 +94,7 @@ final class GameMainView: UIView {
         stackView.spacing      = 10
         return stackView
     }()
-    
 
-    
     private func setupViews() {
     
         addSubview(firstButton)
