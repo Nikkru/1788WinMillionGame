@@ -59,21 +59,21 @@ final class GameMainView: UIView {
     
     
     var scoreLabel: UILabel = {
-       let label = UILabel()
-        label.text = "Вы выйграли 0 рублей"
+       let label                        = UILabel()
+        label.text                      = "Вы выйграли 0 рублей"
         label.font                      = UIFont.systemFont(ofSize: 20)
         label.textAlignment             = .center
         label.numberOfLines             = 0
         label.adjustsFontSizeToFitWidth = true
         label.textColor                 = .white
         label.backgroundColor           = .link
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
+        label.layer.cornerRadius        = 8
+        label.clipsToBounds             = true
         return label
     }()
     
     var questionLabel: UILabel = {
-        let label = UILabel()
+        let label                       = UILabel()
         label.text                      = "Список вопросов"
         label.font                      = UIFont.systemFont(ofSize: 30)
         label.textAlignment             = .center
@@ -81,8 +81,8 @@ final class GameMainView: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.textColor                 = .white
         label.backgroundColor           = .gray
-        label.layer.cornerRadius = 10
-        label.clipsToBounds = true
+        label.layer.cornerRadius        = 10
+        label.clipsToBounds             = true
         return label
     }()
     
