@@ -57,6 +57,7 @@ final class GameMainView: UIView {
         return button
     }()
     
+    var arrayOfButton: [UIView] = []
     
     var scoreLabel: UILabel = {
        let label                        = UILabel()
@@ -92,6 +93,7 @@ final class GameMainView: UIView {
         stackView.axis         = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing      = 10
+        
         return stackView
     }()
 
@@ -115,16 +117,17 @@ final class GameMainView: UIView {
     }
     
     private func addButtonToCtackView() {
-//        let numberOfButtons = 5
-//        for i in 1...numberOfButtons {
-//            let button = ActionButton()
-//            button.setTitle("\(i)", for: .normal)
-//            stackView.addArrangedSubview(button)
-//        }
-        stackView.addArrangedSubview(firstButton)
-        stackView.addArrangedSubview(secondButton)
-        stackView.addArrangedSubview(thirdButton)
-        stackView.addArrangedSubview(forthButton)
+        let numberOfButtons = 5
+        for i in 1...numberOfButtons {
+            let button = ActionButton()
+            button.setTitle("\(1*pow(10, i))", for: .normal)
+            stackView.addArrangedSubview(button)
+        }
+        
+//        stackView.addArrangedSubview(firstButton)
+//        stackView.addArrangedSubview(secondButton)
+//        stackView.addArrangedSubview(thirdButton)
+//        stackView.addArrangedSubview(forthButton)
     }
     
     private func setQuestionLabelConstraints() {
