@@ -32,30 +32,30 @@ final class GameMainView: UIView {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-    
-    var firstButton: ActionButton = {
-       let button = ActionButton()
-        button.setTitle("100", for: .normal)
-        return button
-    }()
-    
-    var secondButton: ActionButton = {
-       let button = ActionButton()
-        button.setTitle("1000", for: .normal)
-        return button
-    }()
-    
-    var thirdButton: ActionButton = {
-       let button = ActionButton()
-        button.setTitle("10000", for: .normal)
-        return button
-    }()
-    
-    var forthButton: ActionButton = {
-       let button = ActionButton()
-        button.setTitle("100000", for: .normal)
-        return button
-    }()
+//
+//    var firstButton: ActionButton = {
+//       let button = ActionButton()
+//        button.setTitle("100", for: .normal)
+//        return button
+//    }()
+//
+//    var secondButton: ActionButton = {
+//       let button = ActionButton()
+//        button.setTitle("1000", for: .normal)
+//        return button
+//    }()
+//
+//    var thirdButton: ActionButton = {
+//       let button = ActionButton()
+//        button.setTitle("10000", for: .normal)
+//        return button
+//    }()
+//
+//    var forthButton: ActionButton = {
+//       let button = ActionButton()
+//        button.setTitle("100000", for: .normal)
+//        return button
+//    }()
     
     var arrayOfButton: [UIView] = []
     
@@ -99,10 +99,10 @@ final class GameMainView: UIView {
 
     private func setupViews() {
     
-        addSubview(firstButton)
-        addSubview(secondButton)
-        addSubview(thirdButton)
-        addSubview(forthButton)
+//        addSubview(firstButton)
+//        addSubview(secondButton)
+//        addSubview(thirdButton)
+//        addSubview(forthButton)
         addSubview(questionLabel)
         addSubview(stackView)
         addSubview(scoreLabel)
@@ -160,7 +160,7 @@ final class GameMainView: UIView {
     
 //    MARK: - Actions
      func addActions() {
-        firstButton.addTarget(self, action: #selector(self.addActionsButtonPressed), for: .touchUpInside)
+//        firstButton.addTarget(self, action: #selector(self.addActionsButtonPressed), for: .touchUpInside)
     }
     
     @objc func addActionsButtonPressed() {

@@ -40,24 +40,24 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
 //    MARK: - GameMainViewActionsDelegate
     func addButtonFirstAction() {
         
-        pressedButton = !pressedButton
-        if pressedButton {
-            
-            UIView.animate(withDuration: 0.5) {
-                
-                self.score += self.game.gameArray100[0]["win"] as! Int
-                self.arrayOfAnswer = self.game.gameArray100[0]["answer"] as! [String]
-                self.answer = self.arrayOfAnswer[0] 
-                self.mainView.firstButton.setTitle(self.game.gameArray100[0]["question"] as? String, for: .normal)
-                self.mainView.firstButton.backgroundColor = .red
-                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
-                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
-                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
-            }
-        } else {
-            self.mainView.firstButton.setTitle("1", for: .normal)
-            self.mainView.firstButton.backgroundColor = .darkGray
-        }
+//        pressedButton = !pressedButton
+//        if pressedButton {
+//            
+//            UIView.animate(withDuration: 0.5) {
+//                
+//                self.score += self.game.gameArray100[0]["win"] as! Int
+//                self.arrayOfAnswer = self.game.gameArray100[0]["answer"] as! [String]
+//                self.answer = self.arrayOfAnswer[0] 
+//                self.mainView.firstButton.setTitle(self.game.gameArray100[0]["question"] as? String, for: .normal)
+//                self.mainView.firstButton.backgroundColor = .red
+//                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
+//                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
+//                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+//            }
+//        } else {
+//            self.mainView.firstButton.setTitle("1", for: .normal)
+//            self.mainView.firstButton.backgroundColor = .darkGray
+//        }
     }
 }
 
