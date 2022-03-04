@@ -66,20 +66,68 @@
 		2E87920927CA6CA80064337A /* 1788WinMillionGame */ = {
 			isa = PBXGroup;
 			children = (
-				2E87920A27CA6CA80064337A /* AppDelegate.swift */,
-				2E87920C27CA6CA80064337A /* SceneDelegate.swift */,
-				2E567B5227CF78BE004238A8 /* GameCaretaker.swift */,
-				2E85F6AC27CBE0E400615C19 /* GameDataBase.swift */,
-				2E87920E27CA6CA80064337A /* GameViewController.swift */,
-				2E87922027CA6E710064337A /* GameMainView.swift */,
-				2E87922327CA87EF0064337A /* ActionButton.swift */,
-				2E85F6A927CBDC3800615C19 /* GameModel.swift */,
+				2E92287527D2322600030662 /* App */,
+				2E92287027D231EA00030662 /* Service */,
+				2E92286927D231A200030662 /* Data */,
+				2E92286B27D231B400030662 /* Controller */,
+				2E92286D27D231C300030662 /* View */,
+				2E92287227D231FA00030662 /* Model */,
 				2E87921027CA6CA80064337A /* Main.storyboard */,
 				2E87921327CA6CAA0064337A /* Assets.xcassets */,
 				2E87921527CA6CAA0064337A /* LaunchScreen.storyboard */,
 				2E87921827CA6CAA0064337A /* Info.plist */,
 			);
 			path = 1788WinMillionGame;
+			sourceTree = "<group>";
+		};
+		2E92286927D231A200030662 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2E85F6AC27CBE0E400615C19 /* GameDataBase.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2E92286B27D231B400030662 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E87920E27CA6CA80064337A /* GameViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2E92286D27D231C300030662 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2E87922327CA87EF0064337A /* ActionButton.swift */,
+				2E87922027CA6E710064337A /* GameMainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2E92287027D231EA00030662 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2E567B5227CF78BE004238A8 /* GameCaretaker.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2E92287227D231FA00030662 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2E85F6A927CBDC3800615C19 /* GameModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2E92287527D2322600030662 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2E87920A27CA6CA80064337A /* AppDelegate.swift */,
+				2E87920C27CA6CA80064337A /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
