@@ -18,7 +18,7 @@ final class ActionButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupButton() {
+   private func setupButton() {
         setTitleColor((.white), for: .normal)
         backgroundColor    = .darkGray
         titleLabel?.font   = UIFont(name: "answer to guestion / question", size: 100)

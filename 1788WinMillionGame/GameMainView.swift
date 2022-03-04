@@ -8,8 +8,7 @@
 import UIKit
 
 protocol GameMainViewActionsDelegate: AnyObject {
-    func addButtonFirstAction()
-
+    func addFirstButtonAction()
 }
 
 final class GameMainView: UIView {
@@ -18,7 +17,11 @@ final class GameMainView: UIView {
     weak var actionsDelegate: GameMainViewActionsDelegate?
     
 //    Clogure
-    var onAddButtonAction: (() -> Void)?
+    var onAddFirstButtonAction: (() -> Void)?
+    var onAddSecondButtonAction: (() -> Void)?
+    var onAddThirdButtonAction: (() -> Void)?
+    var onAddForthButtonAction: (() -> Void)?
+    var onAddFailButtonsViews: (() -> Void)?
     
     //    MARK: - LifeCycle
         override init(frame: CGRect) {
@@ -56,8 +59,7 @@ final class GameMainView: UIView {
         button.setTitle("100000", for: .normal)
         return button
     }()
-    
-    
+
     var scoreLabel: UILabel = {
        let label = UILabel()
         label.text = "Вы выйграли 0 рублей"
@@ -154,16 +156,35 @@ final class GameMainView: UIView {
             scoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50),
         ])
     }
-    
+
 //    MARK: - Actions
      func addActions() {
-        firstButton.addTarget(self, action: #selector(self.addActionsButtonPressed), for: .touchUpInside)
+        firstButton.addTarget(self, action: #selector(self.addActionsFirstButtonPressed), for: .touchUpInside)
+        secondButton.addTarget(self, action: #selector(self.addActionsSecondButtonPressed), for: .touchUpInside)
+        thirdButton.addTarget(self, action: #selector(self.addActionsThirdButtonPressed), for: .touchUpInside)
+        forthButton.addTarget(self, action: #selector(self.addActionsForthButtonPressed), for: .touchUpInside)
     }
     
-    @objc func addActionsButtonPressed() {
+    @objc func addActionsFirstButtonPressed() {
         
-        onAddButtonAction?()
+        onAddFirstButtonAction?()
+//        actionsDelegate?.addButtonAction()
+    }
+    @objc func addActionsSecondButtonPressed() {
         
+        onAddSecondButtonAction?()
+//        actionsDelegate?.addButtonAction()
+    }
+    
+    @objc func addActionsThirdButtonPressed() {
+        
+        onAddThirdButtonAction?()
+//        actionsDelegate?.addButtonAction()
+    }
+    
+    @objc func addActionsForthButtonPressed() {
+        
+        onAddForthButtonAction?()
 //        actionsDelegate?.addButtonAction()
     }
 }
