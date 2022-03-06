@@ -12,14 +12,14 @@ struct GameArray {
     let value: Any
 }
 
-class Game {
-    
-    var gameDictionary: [String: Any] = [
-        "win": 100,
-        "question": "2 X 2 = ?",
-        "answer" : ["1", "0", "4", "5"],
-        "correctIndex": 0
-    ]
+//class Game {
+//    
+//    var gameDictionary: [String: Any] = [
+//        "win": 100,
+//        "question": "2 X 2 = ?",
+//        "answer" : ["1", "0", "4", "5"],
+//        "correctIndex": 0
+//    ]
     
  
     

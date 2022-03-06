@@ -7,37 +7,36 @@
 
 import Foundation
 
-struct Record: Codable {
-    
-    let date: Date
-    let value: Int
-}
+//struct Record: Codable {
+//
+//    let date: Date
+//    let value: Int
+//}
+//
+//class RecordMemento {
+//
+////    var records: [Record]
+//    init(records: [Record]) {
+//        self.records = records
+//    }
+//    private let recordsCaretaker = RecordsCaretaker()
+//    private(set) var records: [Record] {
+//        didSet {
+//            recordsCaretaker.saveRecord(records: self.records)
+//        }
+//    }
+//    private init() {
+//        self.records = self.recordsCaretaker.retrieveRecords()
+//    }
+//}
 
-class RecordMomento {
-    
-//    var records: [Record]
-    init(records: [Record]) {
-        self.records = records
-    }
-    private let recordsCaretaker = RecordsCaretaker()
-    private(set) var records: [Record] {
-        didSet {
-            recordsCaretaker.save(records: self.records)
-        }
-    }
-    private init() {
-        self.records = self.recordsCaretaker.retrieveRecords()
-    }
-}
-
-final class RecordsCaretaker {
+final class RecordsCaretaker<T: Codable> {
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
+    private var key: String { return String(describing: T.self) }
     
-    private let key = "records"
-    
-    func save(records: [Record]) {
+    func saveRecord(records: T) throws {
         do {
             let data = try self.encoder.encode(records)
             UserDefaults.standard.set(data, forKey: key)
@@ -46,16 +45,13 @@ final class RecordsCaretaker {
         }
     }
     
-    func retrieveRecords() -> [Record] {
-        guard let data = UserDefaults.standard.data(forKey: key) else {
-            return []
+    func retrieveRecords() throws -> T? {
+        
+        guard let data = UserDefaults.standard.value(forKey: key) as? Data,
+              let decodeData = try? decoder.decode(T.self, from: data) else {
+            return nil
         }
-        do {
-            return try self.decoder.decode([Record].self, from: data)
-        } catch {
-            print(error)
-            return []
-        }
+        return decodeData
     }
 }
 

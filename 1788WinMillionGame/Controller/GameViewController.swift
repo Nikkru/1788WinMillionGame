@@ -69,7 +69,7 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     //    MARK: - Momento Load
     private func mementoLoad() {
         
-        let recordsCaretaker = RecordsCaretaker()
+        let recordsCaretaker = RecordsCaretaker<GameSessionResult>()
         let records = recordsCaretaker.retrieveRecords()
         score = records.last?.value ?? 0
     }
@@ -82,7 +82,7 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         self.records.append(record)
         //        let recordMemento = RecordMomento(records: records)
         let recordsCaretaker = RecordsCaretaker()
-        recordsCaretaker.save(records: records)
+        recordsCaretaker.saveRecord(records: records)
     }
     
     private func allButtonsOff() {
