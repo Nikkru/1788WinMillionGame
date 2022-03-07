@@ -7,44 +7,155 @@
 
 import Foundation
 
-struct GameArray {
-    let index: String
-    let value: Any
+enum Price: Int {
+    case superLight = 100
+    case light = 1000
+    case medium = 10000
+    case hard = 100000
 }
 
-//class Game {
-//    
-//    var gameDictionary: [String: Any] = [
-//        "win": 100,
-//        "question": "2 X 2 = ?",
-//        "answer" : ["1", "0", "4", "5"],
-//        "correctIndex": 0
-//    ]
+struct GameDataProvider {
     
- 
+    private let questions100 = [
+        
+        GameModel(question: "2 X 2 = ?",
+                  answers: [
+                    1: "5",
+                    2: "2",
+                    3: "4"],
+                  validAnswerId: 2,
+                  questionPrice: 100),
+        
+        GameModel(question: "2 + 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "2",
+                    3: "5"],
+                  validAnswerId: 0,
+                  questionPrice: 100),
+        
+        GameModel(question: "2 - 2 = ?",
+                  answers: [
+                    1: "0",
+                    2: "2",
+                    3: "1"],
+                  validAnswerId: 0,
+                  questionPrice: 100)]
     
-    let gameArray100 = [
-        ["win": 100, "id": 1, "question": "2 X 2 = ?", "answer": ["5", "2", "4"], "correctIndex": 2],
-        ["win": 100, "id": 2, "question": "2 + 2 = ?", "answer": ["4", "2", "5"], "correctIndex": 0],
-        ["win": 100, "id": 3, "question": "2 - 2 = ?", "answer": ["0", "2", "1"], "correctIndex": 0],
+    private let questions1000 = [
+        
+        GameModel(question: "2 X 2 - 2 = ?",
+                  answers: [
+                    1: "2",
+                    2: "0",
+                    3: "4"],
+                  validAnswerId: 0,
+                  questionPrice: 1000),
+        
+        GameModel(question: "2 + 2 X 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "8",
+                    3: "6"],
+                  validAnswerId: 1,
+                  questionPrice: 1000),
+        
+        GameModel(question: "2 / 2 + 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "3",
+                    3: "2"],
+                  validAnswerId: 1,
+                  questionPrice: 1000)
     ]
     
-    let gameArray1000 = [
-        ["win": 1000, "id": 1, "question": "2 X 2 - 2 = ?", "answer": ["2", "0", "4"], "correctIndex": 0],
-        ["win": 1000, "id": 2, "question": "2 + 2 X 2 = ?", "answer": ["4", "8", "6"], "correctIndex": 1],
-        ["win": 1000, "id": 3, "question": "2 / 2 + 2 = ?", "answer": ["4", "3", "2"], "correctIndex": 1],
+    private let questions10000 = [
+        
+        GameModel(question: "(2 X 2 - 2) X 2 = ?",
+                  answers: [
+                    1: "3",
+                    2: "0",
+                    3: "4"],
+                  validAnswerId: 2,
+                  questionPrice: 10000),
+        
+        GameModel(question: "(2 + 2 X 2) / 2 = ?",
+                  answers: [
+                    1: "3",
+                    2: "8",
+                    3: "6"],
+                  validAnswerId: 0,
+                  questionPrice: 10000),
+        
+        GameModel(question: "(2 / 2 + 2) + 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "5",
+                    3: "2"],
+                  validAnswerId: 1,
+                  questionPrice: 10000)
     ]
     
-    let gameArray10000 = [
-        ["win": 10000, "id": 1, "question": "(2 X 2 - 2) X 2 = ?", "answer": ["2", "0", "4"], "correctIndex": 2],
-        ["win": 10000, "id": 2, "question": "(2 + 2 X 2) / 2 = ?", "answer": ["3", "8", "6"], "correctIndex": 0],
-        ["win": 10000, "id": 3, "question": "(2 / 2 + 2) + 2 = ?", "answer": ["4", "5", "2"], "correctIndex": 1],
-    ]
+    private let questions100000 = [
+        
+        GameModel(question: "4 - (2 X 2 - 2) X 2 = ?",
+                  answers: [
+                    1: "2",
+                    2: "0",
+                    3: "4"],
+                  validAnswerId: 1,
+                  questionPrice: 100000),
+        
+        GameModel(question: "4 - (2 + 2 X 2) / 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "1",
+                    3: "6"],
+                  validAnswerId: 1,
+                  questionPrice: 100000),
+        
+        GameModel(question: "4 - (2 / 2 + 2) + 2 = ?",
+                  answers: [
+                    1: "4",
+                    2: "5",
+                    3: "2"],
+                  validAnswerId: 2,
+                  questionPrice: 100000)]
     
-    let gameArray100000 = [
-        ["win": 100000, "id": 1, "question": "4 - (2 X 2 - 2) X 2 = ?", "answer": ["2", "0", "4"], "correctIndex": 1],
-        ["win": 100000, "id": 2, "question": "4 - (2 + 2 X 2) / 2 = ?", "answer": ["4", "1", "6"], "correctIndex": 1],
-        ["win": 100000, "id": 3, "question": "4 - (2 / 2 + 2) + 2 = ?", "answer": ["4", "5", "1"], "correctIndex": 2],
-    ]
+    func getQuestionsCount() -> Int { questions100.count}
+    
+    func getQuestion(priceQuestion: Int? = nil) -> GameModel? {
+        
+        let price = priceQuestion ?? 0
+        
+//        switch Price(rawValue: 100) {
+//
+//        case superLight.rawValue:
+//            break
+//        case .light:
+//            break
+//        case .medium:
+//            break
+//        case .hard:
+//            break
+//        }
+        switch price {
+        case 100:
+            let questions = questions100
+            return questions.first
+        case 1000:
+            let questions = questions1000
+            return questions.first
+        case 10000:
+            let questions = questions10000
+            return questions.first
+        case 100000:
+            let questions = questions100000
+            return questions.first
+        default:
+            let questions = questions1000
+            return questions.last
+        }
+    }
 }
 

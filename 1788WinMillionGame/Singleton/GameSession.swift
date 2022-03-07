@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 final class GameSession: GameSessionDelegate {
 
     private var currentScore: Int?
@@ -30,4 +31,6 @@ final class GameSession: GameSessionDelegate {
     }
     
     func getGameDate() -> Date { gameDate ?? Date()}
+    
+    func addTotalQuestions(count: Int) { allQuestionsCount ?? 0 }
 }

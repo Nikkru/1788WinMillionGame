@@ -10,6 +10,7 @@ import Foundation
 protocol GameSessionDelegate {
     
     func addDidAnswerToQuestion(questionPrice: Int?)
+    func addTotalQuestions(count: Int)
     func getScore() -> Int
     func getGameDate() -> Date
 }

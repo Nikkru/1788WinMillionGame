@@ -9,9 +9,14 @@ import UIKit
 
 final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     
-    private let game = Game()
-    private var records: [Record] = []
-    private var arrayOfAnswer: [String] = []
+    var delegate: GameSessionDelegate?
+    
+    private let dataProvider = GameDataProvider()
+    private var question: GameModel?
+    private var answerButtons: [Int: ActionButton]?
+  
+    private var questionText: String?
+    private var scoreLabelText: String?
     private var score: Int = 0
     private var lastGameScoreDate: Date!
     private var correctlyAnswer = "0"
@@ -31,8 +36,8 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mementoLoad()
-        
+//        mementoLoad()
+        setButtons()
         mainView.actionsDelegate = self
         
         mainView.onAddFirstButtonAction = { [weak self] in
@@ -50,6 +55,8 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         mainView.onAddFailButtonsViews = { [weak self] in
             self?.addFailButtonAction()
         }
+        
+        delegate?.addTotalQuestions(count: dataProvider.getQuestionsCount())
     }
     
     //    Рутовая вью
@@ -58,32 +65,81 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         self.view = GameMainView(frame: UIScreen.main.bounds)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        question = dataProvider.getQuestion()
+        if !setGameLabelText(question: question) { scoreLabelText = "Game over" }
+    }
+    
     //    Notification Center
     override func viewWillDisappear(_ animated: Bool) {
         
-        mementoSave()
+//        mementoSave()
         
 //        let dict = ["score" : self.score]
 //        notificationCenter.post(name: .lastValueScore, object: self, userInfo: dict)
     }
-    //    MARK: - Momento Load
-    private func mementoLoad() {
+    
+    private func setButtons() {
         
-        let recordsCaretaker = RecordsCaretaker<GameSessionResult>()
-        let records = recordsCaretaker.retrieveRecords()
-        score = records.last?.value ?? 0
+        answerButtons = [1: mainView.firstButton,
+                         2: mainView.secondButton,
+                         3: mainView.thirdButton,
+                         4: mainView.forthButton]
     }
     
-    //    MARK: - Momento Save
-    private func mementoSave() {
+    private func checkAnswer(button: ActionButton) {
         
-        self.lastGameScoreDate = Date()
-        let record = Record(date: self.lastGameScoreDate, value: self.score)
-        self.records.append(record)
-        //        let recordMemento = RecordMomento(records: records)
-        let recordsCaretaker = RecordsCaretaker()
-        recordsCaretaker.saveRecord(records: records)
+        let currentQuestion = question
+        question = nil
+        if let id = currentQuestion?.validAnswerId,
+           let validButton = answerButtons?[id]
+        {
+            if button == validButton {
+                delegate?.addDidAnswerToQuestion(questionPrice: currentQuestion?.questionPrice)
+                question = dataProvider.getQuestion(priceQuestion: currentQuestion?.questionPrice)
+            }
+        }
     }
+    
+    private func setGameLabelText(question: GameModel?) -> Bool {
+        
+        guard let question = question else { return false }
+        questionText = question.question
+        scoreLabelText = "You are win \(delegate?.getScore() ?? 0)"
+//        answerButtons?.forEach {
+//            $0.value.setTitle(question.answers[$0.key], for: .normal)
+//        }
+        return true
+    }
+    
+    private func setQuestion(question: GameModel?) {
+        
+        guard let question = question else { return }
+        questionText = question.question
+        answerButtons?.forEach {
+            if $0.value.titleLabel?.text == String(question.questionPrice) {
+                $0.value.setTitle(question.question, for: .normal)
+            }
+        }
+    }
+    
+    //    MARK: - Memento Load
+//    private func mementoLoad() {
+//
+//
+//    }
+    
+    //    MARK: - Memento Save
+//    private func mementoSave() {
+//
+//        self.lastGameScoreDate = Date()
+//        let record = Record(date: self.lastGameScoreDate, value: self.score)
+//        self.records.append(record)
+//        //        let recordMemento = RecordMomento(records: records)
+//        let recordsCaretaker = RecordsCaretaker()
+//        recordsCaretaker.saveRecord(records: records)
+//    }
     
     private func allButtonsOff() {
         pressedFirstButton = false
@@ -142,15 +198,16 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
             pressedFirstButton = true
             UIView.animate(withDuration: 0.5) {
                 
-                self.arrayOfAnswer = self.game.gameArray100[0]["answer"] as! [String]
-                self.scoreLevel = self.game.gameArray100[0]["win"] as! Int
-                self.correctlyAnswer = String(self.arrayOfAnswer[2])
-                
-                self.mainView.firstButton.setTitle(self.game.gameArray100[0]["question"] as? String, for: .normal)
-                self.mainView.firstButton.backgroundColor = .red
-                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
-                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
-                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+//                self.arrayOfAnswer = self.game.gameArray100[0]["answer"] as! [String]
+//                self.scoreLevel = self.game.gameArray100[0]["win"] as! Int
+//                self.correctlyAnswer = String(self.arrayOfAnswer[2])
+//
+//                self.mainView.firstButton.setTitle(self.question?.question, for: .normal)
+//                self.mainView.firstButton.backgroundColor = .red
+//                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
+//                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
+//                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+                self.setQuestion(question: self.question)
             }
         }
     }
@@ -185,15 +242,16 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
             pressedSecondButton = true
             UIView.animate(withDuration: 0.5) {
                 
-                self.arrayOfAnswer = self.game.gameArray1000[0]["answer"] as! [String]
-                self.scoreLevel = self.game.gameArray1000[0]["win"] as! Int
-                self.correctlyAnswer = String(self.arrayOfAnswer[self.game.gameArray1000[0]["correctIndex"] as! Int])
-                
-                self.mainView.firstButton.setTitle(self.game.gameArray1000[0]["question"] as? String, for: .normal)
-                self.mainView.firstButton.backgroundColor = .red
-                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
-                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
-                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+                self.setQuestion(question: self.question)
+//                self.arrayOfAnswer = self.game.gameArray1000[0]["answer"] as! [String]
+//                self.scoreLevel = self.game.gameArray1000[0]["win"] as! Int
+//                self.correctlyAnswer = String(self.arrayOfAnswer[self.game.gameArray1000[0]["correctIndex"] as! Int])
+//
+//                self.mainView.firstButton.setTitle(self.game.gameArray1000[0]["question"] as? String, for: .normal)
+//                self.mainView.firstButton.backgroundColor = .red
+//                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
+//                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
+//                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
             }
         }
     }
@@ -215,15 +273,15 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
             pressedThirdButton = true
             UIView.animate(withDuration: 0.5) {
                 
-                self.arrayOfAnswer = self.game.gameArray10000[0]["answer"] as! [String]
-                self.scoreLevel = self.game.gameArray10000[0]["win"] as! Int
-                self.correctlyAnswer = String(self.arrayOfAnswer[2])
-                
-                self.mainView.firstButton.setTitle(self.game.gameArray10000[0]["question"] as? String, for: .normal)
-                self.mainView.firstButton.backgroundColor = .red
-                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
-                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
-                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+//                self.arrayOfAnswer = self.game.gameArray10000[0]["answer"] as! [String]
+//                self.scoreLevel = self.game.gameArray10000[0]["win"] as! Int
+//                self.correctlyAnswer = String(self.arrayOfAnswer[2])
+//
+//                self.mainView.firstButton.setTitle(self.game.gameArray10000[0]["question"] as? String, for: .normal)
+//                self.mainView.firstButton.backgroundColor = .red
+//                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
+//                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
+//                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
             }
         }
     }
@@ -245,15 +303,15 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
             pressedForthButton = true
             UIView.animate(withDuration: 0.5) {
                 
-                self.arrayOfAnswer = self.game.gameArray100000[0]["answer"] as! [String]
-                self.scoreLevel = self.game.gameArray100000[0]["win"] as! Int
-                self.correctlyAnswer = String(self.arrayOfAnswer[1])
-                
-                self.mainView.firstButton.setTitle(self.game.gameArray100000[0]["question"] as? String, for: .normal)
-                self.mainView.firstButton.backgroundColor = .red
-                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
-                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
-                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
+//                self.arrayOfAnswer = self.game.gameArray100000[0]["answer"] as! [String]
+//                self.scoreLevel = self.game.gameArray100000[0]["win"] as! Int
+//                self.correctlyAnswer = String(self.arrayOfAnswer[1])
+//
+//                self.mainView.firstButton.setTitle(self.game.gameArray100000[0]["question"] as? String, for: .normal)
+//                self.mainView.firstButton.backgroundColor = .red
+//                self.mainView.secondButton.setTitle(self.arrayOfAnswer[0], for: .normal)
+//                self.mainView.thirdButton.setTitle(self.arrayOfAnswer[1], for: .normal)
+//                self.mainView.forthButton.setTitle(self.arrayOfAnswer[2], for: .normal)
             }
         }
     }
