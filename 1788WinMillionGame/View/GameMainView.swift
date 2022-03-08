@@ -117,12 +117,7 @@ final class GameMainView: UIView {
     }
     
     private func addButtonToCtackView() {
-        //        let numberOfButtons = 5
-        //        for i in 1...numberOfButtons {
-        //            let button = ActionButton()
-        //            button.setTitle("\(i)", for: .normal)
-        //            stackView.addArrangedSubview(button)
-        //        }
+
         stackView.addArrangedSubview(firstButton)
         stackView.addArrangedSubview(secondButton)
         stackView.addArrangedSubview(thirdButton)
