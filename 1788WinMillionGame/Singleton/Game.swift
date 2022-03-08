@@ -19,7 +19,6 @@ final class Game {
         guard let gameSession = self.session else { return }
         
         let count = gameSession.getDidAnswerCount()
-        let allDidAnswersCount = gameSession.getAllAnswersCount()
         let totalCount = gameSession.getAllAnswersCount()
         
         self.result.append(GameSessionResult(
@@ -28,6 +27,7 @@ final class Game {
                             didAnswer: count,
                             persent: totalCount == 0 ? 0 : (count * 100) / totalCount)
         )
-        try? RecordsCaretaker<[GameSessionResult]>().saveRecord(records: self.result)
+        try? GameCaretaker<[GameSessionResult]>().saveRecord(records: self.result)
+        session = nil
     }
 }

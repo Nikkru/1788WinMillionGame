@@ -7,30 +7,7 @@
 
 import Foundation
 
-//struct Record: Codable {
-//
-//    let date: Date
-//    let value: Int
-//}
-//
-//class RecordMemento {
-//
-////    var records: [Record]
-//    init(records: [Record]) {
-//        self.records = records
-//    }
-//    private let recordsCaretaker = RecordsCaretaker()
-//    private(set) var records: [Record] {
-//        didSet {
-//            recordsCaretaker.saveRecord(records: self.records)
-//        }
-//    }
-//    private init() {
-//        self.records = self.recordsCaretaker.retrieveRecords()
-//    }
-//}
-
-final class RecordsCaretaker<T: Codable> {
+final class GameCaretaker<T: Codable> {
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

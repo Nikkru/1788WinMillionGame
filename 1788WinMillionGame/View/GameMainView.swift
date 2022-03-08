@@ -13,10 +13,10 @@ protocol GameMainViewActionsDelegate: AnyObject {
 
 final class GameMainView: UIView {
     
-//    Delegate
+    //    Delegate
     weak var actionsDelegate: GameMainViewActionsDelegate?
     
-//    Clogure
+    //    Clogure
     var onAddFirstButtonAction: (() -> Void)?
     var onAddSecondButtonAction: (() -> Void)?
     var onAddThirdButtonAction: (() -> Void)?
@@ -24,53 +24,53 @@ final class GameMainView: UIView {
     var onAddFailButtonsViews: (() -> Void)?
     
     //    MARK: - LifeCycle
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.backgroundColor = .black
-            setupViews()
-            setupConstraints()
-            addActions()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .black
+        setupViews()
+        setupConstraints()
+        addActions()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var firstButton: ActionButton = {
-       let button = ActionButton()
+        let button = ActionButton()
         button.setTitle("100", for: .normal)
         return button
     }()
     
     var secondButton: ActionButton = {
-       let button = ActionButton()
+        let button = ActionButton()
         button.setTitle("1000", for: .normal)
         return button
     }()
     
     var thirdButton: ActionButton = {
-       let button = ActionButton()
+        let button = ActionButton()
         button.setTitle("10000", for: .normal)
         return button
     }()
     
     var forthButton: ActionButton = {
-       let button = ActionButton()
+        let button = ActionButton()
         button.setTitle("100000", for: .normal)
         return button
     }()
-
+    
     var scoreLabel: UILabel = {
-       let label = UILabel()
-        label.text = "Вы выйграли 0 рублей"
+        let label = UILabel()
+        label.text                      = "Вы выйграли 0 рублей"
         label.font                      = UIFont.systemFont(ofSize: 20)
         label.textAlignment             = .center
         label.numberOfLines             = 0
         label.adjustsFontSizeToFitWidth = true
         label.textColor                 = .white
         label.backgroundColor           = .link
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
+        label.layer.cornerRadius        = 8
+        label.clipsToBounds             = true
         return label
     }()
     
@@ -83,22 +83,22 @@ final class GameMainView: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.textColor                 = .white
         label.backgroundColor           = .gray
-        label.layer.cornerRadius = 10
-        label.clipsToBounds = true
+        label.layer.cornerRadius        = 8
+        label.clipsToBounds             = true
         return label
     }()
     
     var stackView: UIStackView = {
-    
+        
         let stackView          = UIStackView()
         stackView.axis         = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing      = 10
         return stackView
     }()
-
-    private func setupViews() {
     
+    private func setupViews() {
+        
         addSubview(firstButton)
         addSubview(secondButton)
         addSubview(thirdButton)
@@ -117,12 +117,12 @@ final class GameMainView: UIView {
     }
     
     private func addButtonToCtackView() {
-//        let numberOfButtons = 5
-//        for i in 1...numberOfButtons {
-//            let button = ActionButton()
-//            button.setTitle("\(i)", for: .normal)
-//            stackView.addArrangedSubview(button)
-//        }
+        //        let numberOfButtons = 5
+        //        for i in 1...numberOfButtons {
+        //            let button = ActionButton()
+        //            button.setTitle("\(i)", for: .normal)
+        //            stackView.addArrangedSubview(button)
+        //        }
         stackView.addArrangedSubview(firstButton)
         stackView.addArrangedSubview(secondButton)
         stackView.addArrangedSubview(thirdButton)
@@ -156,9 +156,9 @@ final class GameMainView: UIView {
             scoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50),
         ])
     }
-
-//    MARK: - Actions
-     func addActions() {
+    
+    //    MARK: - Actions
+    func addActions() {
         firstButton.addTarget(self, action: #selector(self.addActionsFirstButtonPressed), for: .touchUpInside)
         secondButton.addTarget(self, action: #selector(self.addActionsSecondButtonPressed), for: .touchUpInside)
         thirdButton.addTarget(self, action: #selector(self.addActionsThirdButtonPressed), for: .touchUpInside)
@@ -168,24 +168,24 @@ final class GameMainView: UIView {
     @objc func addActionsFirstButtonPressed() {
         
         onAddFirstButtonAction?()
-//        actionsDelegate?.addButtonAction()
+        //        actionsDelegate?.addButtonAction()
     }
     @objc func addActionsSecondButtonPressed() {
         
         onAddSecondButtonAction?()
-//        actionsDelegate?.addButtonAction()
+        //        actionsDelegate?.addButtonAction()
     }
     
     @objc func addActionsThirdButtonPressed() {
         
         onAddThirdButtonAction?()
-//        actionsDelegate?.addButtonAction()
+        //        actionsDelegate?.addButtonAction()
     }
     
     @objc func addActionsForthButtonPressed() {
         
         onAddForthButtonAction?()
-//        actionsDelegate?.addButtonAction()
+        //        actionsDelegate?.addButtonAction()
     }
 }
 

@@ -23,7 +23,7 @@ struct GameDataProvider {
                     1: "5",
                     2: "2",
                     3: "4"],
-                  validAnswerId: 2,
+                  validAnswerId: 3,
                   questionPrice: 100),
         
         GameModel(question: "2 + 2 = ?",
@@ -39,7 +39,7 @@ struct GameDataProvider {
                     1: "0",
                     2: "2",
                     3: "1"],
-                  validAnswerId: 0,
+                  validAnswerId: 1,
                   questionPrice: 100)]
     
     private let questions1000 = [
@@ -49,7 +49,7 @@ struct GameDataProvider {
                     1: "2",
                     2: "0",
                     3: "4"],
-                  validAnswerId: 0,
+                  validAnswerId: 1,
                   questionPrice: 1000),
         
         GameModel(question: "2 + 2 X 2 = ?",
@@ -57,7 +57,7 @@ struct GameDataProvider {
                     1: "4",
                     2: "8",
                     3: "6"],
-                  validAnswerId: 1,
+                  validAnswerId: 2,
                   questionPrice: 1000),
         
         GameModel(question: "2 / 2 + 2 = ?",
@@ -65,7 +65,7 @@ struct GameDataProvider {
                     1: "4",
                     2: "3",
                     3: "2"],
-                  validAnswerId: 1,
+                  validAnswerId: 2,
                   questionPrice: 1000)
     ]
     
@@ -76,15 +76,15 @@ struct GameDataProvider {
                     1: "3",
                     2: "0",
                     3: "4"],
-                  validAnswerId: 2,
+                  validAnswerId: 3,
                   questionPrice: 10000),
         
         GameModel(question: "(2 + 2 X 2) / 2 = ?",
                   answers: [
-                    1: "3",
+                    1: "4",
                     2: "8",
                     3: "6"],
-                  validAnswerId: 0,
+                  validAnswerId: 1,
                   questionPrice: 10000),
         
         GameModel(question: "(2 / 2 + 2) + 2 = ?",
@@ -92,7 +92,7 @@ struct GameDataProvider {
                     1: "4",
                     2: "5",
                     3: "2"],
-                  validAnswerId: 1,
+                  validAnswerId: 2,
                   questionPrice: 10000)
     ]
     
@@ -103,7 +103,7 @@ struct GameDataProvider {
                     1: "2",
                     2: "0",
                     3: "4"],
-                  validAnswerId: 1,
+                  validAnswerId: 2,
                   questionPrice: 100000),
         
         GameModel(question: "4 - (2 + 2 X 2) / 2 = ?",
@@ -111,34 +111,23 @@ struct GameDataProvider {
                     1: "4",
                     2: "1",
                     3: "6"],
-                  validAnswerId: 1,
+                  validAnswerId: 2,
                   questionPrice: 100000),
         
         GameModel(question: "4 - (2 / 2 + 2) + 2 = ?",
                   answers: [
-                    1: "4",
+                    1: "3",
                     2: "5",
                     3: "2"],
-                  validAnswerId: 2,
+                  validAnswerId: 1,
                   questionPrice: 100000)]
     
     func getQuestionsCount() -> Int { questions100.count}
     
-    func getQuestion(priceQuestion: Int? = nil) -> GameModel? {
+    func getQuestion(priceQuestion: Int) -> GameModel? {
         
         let price = priceQuestion ?? 0
-        
-//        switch Price(rawValue: 100) {
-//
-//        case superLight.rawValue:
-//            break
-//        case .light:
-//            break
-//        case .medium:
-//            break
-//        case .hard:
-//            break
-//        }
+ 
         switch price {
         case 100:
             let questions = questions100

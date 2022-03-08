@@ -22,6 +22,6 @@ final class ActionButton: UIButton {
         setTitleColor((.white), for: .normal)
         backgroundColor    = .darkGray
         titleLabel?.font   = UIFont(name: "answer to guestion / question", size: 100)
-        layer.cornerRadius = 10
+    layer.cornerRadius = 10
     }
 }
