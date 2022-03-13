@@ -12,12 +12,14 @@ final class GameSession: GameSessionDelegate {
     private var currentScore: Int?
     private var didAnswersCount: Int?
     private var allQuestionsCount: Int?
-    private var gameDate: Date?
+//    private var gameDate: Date?
     
-    func addCountOfAllQuestions(count: Int) {
-        allQuestionsCount = count
-    }
+//    func addCountOfAllQuestions(count: Int) {
+//        allQuestionsCount = count
+//    }
 
+    func addTotalQuestions(count: Int) { allQuestionsCount = count }
+    
     func getScore() -> Int { currentScore ?? 0 }
     func getDidAnswerCount() -> Int { didAnswersCount ?? 0 }
     func getAllAnswersCount() -> Int { allQuestionsCount ?? 0 }
@@ -30,7 +32,7 @@ final class GameSession: GameSessionDelegate {
         }
     }
     
-    func getGameDate() -> Date { gameDate ?? Date()}
+//    func getGameDate() -> Date { gameDate ?? Date()}
     
-    func addTotalQuestions(count: Int) { allQuestionsCount ?? 0 }
+
 }

@@ -38,6 +38,15 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        delegate?.addTotalQuestions(count: dataProvider.getQuestionsCount())
+        
+        try? Game.instance.results = GameCaretaker<[GameSessionResult]>().retrieveRecords() ?? [GameSessionResult]()
+        
+        stringResult = getResults()
+        print(stringResult ?? "архив пуст")
+        
+        score = Game.instance.results.last?.winMoney ?? 0
+
         mainView.actionsDelegate = self
         
         mainView.onAddFirstButtonAction = { [weak self] in
@@ -52,14 +61,6 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         mainView.onAddForthButtonAction = { [weak self] in
             self?.addForthButtonAction()
         }
-        delegate?.addTotalQuestions(count: dataProvider.getQuestionsCount())
-        
-        try? Game.instance.result = GameCaretaker<[GameSessionResult]>().retrieveRecords() ?? [GameSessionResult]()
-        
-        stringResult = getResults()
-        print(stringResult)
-        
-        score = Game.instance.result.last?.winMoney ?? 0
     }
     
     //    Рутовая вью
@@ -78,8 +79,8 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     
     //    метод получения массива сессий прошлых игр - статистика
     private func getResults() -> String {
-        return Game.instance.result.isEmpty ? "архив пуст" :
-            Game.instance.result.map { $0.description() }
+        return Game.instance.results.isEmpty ? "архив пуст" :
+            Game.instance.results.map { $0.description() }
             .reversed()
             .joined(separator: "\n")
     }
@@ -153,6 +154,7 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
             mainView.scoreLabel.backgroundColor = .systemGray3
             score = 0
             mainView.questionLabel.text = "ИГРАЕМ ЕЩЕ! выберите категорию вопроса"
+            saveGameData()
             
         default:
             mainView.scoreLabel.backgroundColor = .systemRed
@@ -164,7 +166,7 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
     
     private func saveGameData() {
         
-        Game.instance.getResults()
+        Game.instance.setupResults()
     }
     
     private func setButtonLabelText() {

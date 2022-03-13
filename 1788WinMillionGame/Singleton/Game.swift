@@ -11,23 +11,28 @@ final class Game {
     
     static let instance = Game()
     
-    var session: GameSession?
-    var result = [GameSessionResult]()
+    private init() {}
     
-    func getResults() {
+    var session: GameSession?
+    var results = [GameSessionResult]()
+    
+    func setupResults() {
         
-        guard let gameSession = self.session else { return }
+        guard let gameSession = session else {
+            print("session is nil")
+            return }
         
         let count = gameSession.getDidAnswerCount()
         let totalCount = gameSession.getAllAnswersCount()
         
-        self.result.append(GameSessionResult(
+        results.append(GameSessionResult(
                             winMoney: gameSession.getScore(),
-                            gameDate: gameSession.getGameDate(),
+//                            gameDate: gameSession.getGameDate(),
                             didAnswer: count,
                             persent: totalCount == 0 ? 0 : (count * 100) / totalCount)
         )
-        try? GameCaretaker<[GameSessionResult]>().saveRecord(records: self.result)
+        try? GameCaretaker<[GameSessionResult]>().saveRecord(records: results)
+        print(results.description)
         session = nil
     }
 }
