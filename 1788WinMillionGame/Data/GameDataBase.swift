@@ -114,7 +114,7 @@ struct GameDataProvider {
                   validAnswerId: 2,
                   questionPrice: 100000),
         
-        GameModel(question: "4 - (2 / 2 + 2) + 2 = ?",
+        GameModel(question: "4 - (2 / 2 + 2) + 2 = ? ",
                   answers: [
                     1: "3",
                     2: "6",
