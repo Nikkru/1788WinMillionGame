@@ -40,7 +40,7 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         
         delegate?.addTotalQuestions(count: dataProvider.getQuestionsCount())
         
-        try? Game.instance.results = GameCaretaker<[GameSessionResult]>().retrieveRecords() ?? [GameSessionResult]()
+//        try? Game.instance.results = GameCaretaker<[GameSessionResult]>().retrieveRecords() ?? [GameSessionResult]()
         
         stringResult = getResults()
         print(stringResult ?? "архив пуст")

@@ -76,7 +76,7 @@ final class GameMainView: UIView {
     
     var questionLabel: UILabel = {
         let label = UILabel()
-        label.text                      = "Список вопросов"
+        label.text                      = "Выберите категорию вопросов"
         label.font                      = UIFont.systemFont(ofSize: 30)
         label.textAlignment             = .center
         label.numberOfLines             = 0

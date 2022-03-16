@@ -14,10 +14,12 @@ final class StartMainView: UIView {
 
    override init(frame: CGRect) {
         super.init(frame: frame)
+    
     self.backgroundColor = .black
     setupViews()
     configureStack()
     setStackViewConstraints()
+    addActions()
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +81,11 @@ final class StartMainView: UIView {
             stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40),
             stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -40)
         ])
+    }
+    
+    func addActions() {
+        resultButton.addTarget(self, action: #selector(self.addActionResultButtonPressed), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(self.addActionPlayButtonPressed), for: .touchUpInside)
     }
     
     @objc func addActionResultButtonPressed() {
