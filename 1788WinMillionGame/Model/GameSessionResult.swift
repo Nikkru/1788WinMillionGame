@@ -33,7 +33,7 @@ struct GameSessionResult: Codable {
 //            stringDate = date.toString()
 //        } else { stringDate = "The date of this game is unknown" }
 
-        return "Did Won " + String(winMoney) +
+        "Did Won: " + String(winMoney) +
             " / did answer " + String(didAnswer) +
             " / persent of right " + String(persent)
 //            " / \(stringDate)"

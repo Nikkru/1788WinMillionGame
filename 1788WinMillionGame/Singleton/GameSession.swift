@@ -13,10 +13,6 @@ final class GameSession: GameSessionDelegate {
     private var didAnswersCount: Int?
     private var allQuestionsCount: Int?
 //    private var gameDate: Date?
-    
-//    func addCountOfAllQuestions(count: Int) {
-//        allQuestionsCount = count
-//    }
 
     func addTotalQuestions(count: Int) { allQuestionsCount = count }
     
