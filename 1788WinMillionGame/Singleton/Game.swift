@@ -27,10 +27,13 @@ final class Game {
         
         results.append(GameSessionResult(
                             winMoney: gameSession.getScore(),
-//                            gameDate: gameSession.getGameDate(),
+                            gameDate: gameSession.getGameDate(),
                             didAnswer: count,
                             persent: totalCount == 0 ? 0 : (count * 100) / totalCount)
         )
+        
+        if results.count > 4 { results.removeLast() }
+        
         try? GameCaretaker<[GameSessionResult]>().saveRecord(records: results)
         print(results.description)
         session = nil

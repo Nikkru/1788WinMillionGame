@@ -81,7 +81,7 @@ struct GameDataProvider {
         
         GameModel(question: "(2 + 2 X 2) / 2 = ?",
                   answers: [
-                    1: "4",
+                    1: "3",
                     2: "8",
                     3: "6"],
                   validAnswerId: 1,
@@ -131,16 +131,16 @@ struct GameDataProvider {
         switch price {
         case 100:
             let questions = questions100
-            return questions.first
+            return questions.randomElement()
         case 1000:
             let questions = questions1000
-            return questions.first
+            return questions.randomElement()
         case 10000:
             let questions = questions10000
-            return questions.first
+            return questions.randomElement()
         case 100000:
             let questions = questions100000
-            return questions.first
+            return questions.randomElement()
         default:
             let questions = questions1000
             return questions.last

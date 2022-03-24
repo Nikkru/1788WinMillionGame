@@ -39,13 +39,12 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         super.viewDidLoad()
         
         delegate?.addTotalQuestions(count: dataProvider.getQuestionsCount())
-        
-//        try? Game.instance.results = GameCaretaker<[GameSessionResult]>().retrieveRecords() ?? [GameSessionResult]()
-        
+
         stringResult = getResults()
-        print(stringResult ?? "архив пуст")
+        print(stringResult!)
         
         score = Game.instance.results.last?.winMoney ?? 0
+        mainView.scoreLabel.text = String(score)
 
         mainView.actionsDelegate = self
         
@@ -138,15 +137,17 @@ final class GameViewController: UIViewController, GameMainViewActionsDelegate {
         if button.titleLabel?.text == self.correctlyAnswer {
             
             score += scoreLevel
+            mainView.scoreLabel.backgroundColor = .systemGreen
         } else {
             score -= scoreLevel
+            mainView.scoreLabel.backgroundColor = .systemRed
         }
         
         switch score {
         
         case 0...999999:
-            mainView.scoreLabel.backgroundColor = .systemBlue
-            mainView.scoreLabel.text = "Вы выйграли \(score) рублей"
+            
+            mainView.scoreLabel.text = "Ваш счет \(score) рублей"
             mainView.questionLabel.text = "выберите категорию вопроса"
             
         case ...0 :

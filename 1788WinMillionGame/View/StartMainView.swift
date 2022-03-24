@@ -40,8 +40,8 @@ final class StartMainView: UIView {
     
     var resultLabel: UILabel = {
         let label = UILabel()
-        label.font                      = UIFont.systemFont(ofSize: 20)
-        label.textAlignment             = .center
+        label.font                      = UIFont.systemFont(ofSize: 12)
+        label.textAlignment             = .left
         label.numberOfLines             = 0
         label.adjustsFontSizeToFitWidth = true
         label.textColor                 = .white

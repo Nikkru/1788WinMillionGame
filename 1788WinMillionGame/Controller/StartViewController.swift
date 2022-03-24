@@ -16,6 +16,7 @@ class StartViewController: UIViewController {
         
         try? Game.instance.results = GameCaretaker<[GameSessionResult]>().retrieveRecords() ??
         [GameSessionResult]()
+        
         mainView.resultLabel.text = getResults()
         
         mainView.onAddResultButtonAction = { [weak self] in
